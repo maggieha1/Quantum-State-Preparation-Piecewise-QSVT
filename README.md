@@ -7,6 +7,8 @@ We simulate a Biological Anomaly Classifier that evaluates the energy levels (si
 * **Healthy** (Output 0): Singular value $< 0.5$.
 * **Diseased** (Output 1): Singular value $\ge 0.5$.
 
+We first perform global approximation then piecewise approximation, and we compare these two approach in term of fidelity verication and circuit depth.
+
 ## Architecture & Qubit Setup
 This piecewise classification utilizes a 3-qubit architecture:
 * **System Qubit (1):** Holds the raw biological data.
@@ -32,4 +34,4 @@ By utilizing a **Piecewise** approach, this project partitions the singular valu
 ## Installation & Execution
 1. Clone this repository.
 2. Install dependencies: `pip install -r requirements.txt`
-3. Open and run all cells in `QSVT_Biological_Classifier.ipynb`.
+3. Open and run all cells in `QSVT_Classifier.ipynb`.
