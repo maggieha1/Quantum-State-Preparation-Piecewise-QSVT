@@ -7,27 +7,27 @@ We simulate a Biological Anomaly Classifier that evaluates the energy levels (si
 * **Healthy** (Output 0): Singular value $< 0.5$.
 * **Diseased** (Output 1): Singular value $\ge 0.5$.
 
-We first perform global approximation then piecewise approximation, and we compare these two approach in term of fidelity verication and circuit depth.
+We first perform global approximation then piecewise approximation, and we compare these two approach in term of fidelity verification and circuit depth.
 
 ## Architecture & Qubit Setup
 This piecewise classification utilizes a 3-qubit architecture:
 * **System Qubit (1):** Holds the raw biological data.
-* **Auxiliary Qubit (1):** Provides the mathematical slack space to block-encode the non-unitary biological matrix $A$ into a strictly unitary matrix $U$.
+* **Auxiliary Qubit (1):** Provides the mathematical slack padding space to block-encode the non-unitary biological matrix $A$ into a strictly unitary matrix $U$.
 * **Routing Qubit (1):** Acts as a quantum IF statement to route the data based on the Step Function threshold.
 
 ## The Analysis: Polynomial Degree vs. Circuit Depth
-Applying a sharp, non-linear function (like a Step Function) directly to a quantum circuit is physically impossible. It must be classically approximated using a polynomial first. This introduces the most critical engineering trade-off in QSVT.
+Applying a sharp, non-linear function (like a Step Function) directly to a quantum circuit is physically impossible. It must be classically approximated using a polynomial first. This introduces a trade-off in QSVT.
 
 | Metric | Low Degree Polynomial | High Degree Polynomial |
 | :--- | :--- | :--- |
 | **Circuit Depth** | Shallow (Less noise) | Deep (High decoherence risk) |
 | **Matrix Queries** | Few operations of $U$ | Many operations of $U$ |
-| **Accuracy** | Poor (Lazy slope) | High (Sharp threshold) |
+| **Accuracy** | Poor | High |
 | **Gibbs Phenomenon** | Minimal | Severe ringing near the jump |
 
-In QSVT, the degree of the polynomial ($d$) is exactly equal to the number of times the quantum circuit must query the block-encoded matrix $U$. A high-degree polynomial accurately models the vertical jump of the Step function, but it requires a deeply nested circuit (e.g., $d$ alternating gate sequences). On near-term hardware, this depth introduces fatal noise. 
+In QSVT, the degree of the polynomial ($d$) is exactly equal to the number of times the quantum circuit must query the block-encoded matrix $U$. A high-degree polynomial accurately models the vertical jump of the Step function, but it requires a deeply nested circuit (e.g., $d$ alternating gate sequences). On near-term hardware, this depth introduces massive noise. 
 
-Furthermore, approximating a discontinuous step with continuous polynomials inherently introduces the **Gibbs Phenomenon** oscillatory ringing or squiggles immediately before and after the jump.
+Furthermore, approximating a discontinuous step with continuous polynomials mathematically introduces the **Gibbs Phenomenon** oscillatory ringings immediately before and after the jump.
 
 By utilizing a **Piecewise** approach, this project partitions the singular value domain, applying simpler, lower-degree polynomials to specific segments. This maintains mathematical fidelity while keeping the overall circuit depth shallow enough to survive physical hardware constraints.
 
