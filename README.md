@@ -1,9 +1,9 @@
-# Quantum State Preparation via Piecewise QSVT: Biological Anomaly Classifier
+# Quantum State Preparation via Piecewise QSVT: Biological Classifier
 
 ## Overview
 This project implements a Quantum Machine Learning (QML) data-loading pipeline using Quantum Singular Value Transformation (QSVT). 
 
-We simulate a Biological Anomaly Classifier that evaluates the energy levels (singular values) of a $2 \times 2$ biological transition matrix. A Step Function is applied as a quantum filter:
+We simulate a Biological (Disease) Classifier that evaluates the energy levels (singular values) of a $2 \times 2$ biological data matrix. A Step Function is applied as a quantum filter:
 * **Healthy** (Output 0): Singular value $< 0.5$.
 * **Diseased** (Output 1): Singular value $\ge 0.5$.
 
